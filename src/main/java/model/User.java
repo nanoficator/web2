@@ -40,16 +40,4 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if(obj == null || this.getClass() != obj.getClass()) {
-            return false;
-        }
-        if(this == obj) {
-            return true;
-        }
-        User userObj = (User)obj;
-        return this.email == userObj.email;
-    }
 }
