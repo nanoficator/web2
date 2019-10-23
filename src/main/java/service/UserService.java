@@ -41,6 +41,7 @@ public class UserService {
     }
 
     public void deleteAllUser() {
+        UserService.getUserService().logoutAllUsers();
         dataBase.clear();
     }
 
