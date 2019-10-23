@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class ApiServlet extends HttpServlet {
 
-    UserService userService;
+    UserService userService = UserService.getUserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
