@@ -18,12 +18,8 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter writer = resp.getWriter();
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
-        User newRegUser = new User(email, password);
-        if(!UserService.getUserService().isExistsThisUser(newRegUser)) {
-            UserService.getUserService().addUser(newRegUser);
-        }
+        User newUser = new User(req.getParameter("email"), req.getParameter("password"));
+        UserService.getUserService().addUser(newUser);
     }
 
     @Override

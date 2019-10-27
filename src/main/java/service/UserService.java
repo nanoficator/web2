@@ -34,7 +34,8 @@ public class UserService {
 
     public boolean addUser(User user) {
         if(!isExistsThisUser(user)) {
-            dataBase.put(maxId.incrementAndGet(), user);
+            user.setId(maxId.incrementAndGet());
+            dataBase.put(user.getId(), user);
             return true;
         }
         return false;
@@ -46,7 +47,15 @@ public class UserService {
     }
 
     public boolean isExistsThisUser(User user) {
-        return dataBase.containsValue(user);
+        List<User> allUsers = UserService.getUserService().getAllUsers();
+        Iterator it = allUsers.iterator();
+        while (it.hasNext()) {
+            User userIt = (User) it.next();
+            if (user.getEmail() == userIt.getEmail()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public List<User> getAllAuth() {
@@ -54,7 +63,7 @@ public class UserService {
     }
 
     public boolean authUser(User user) {
-        if(!authMap.containsValue(user) && dataBase.containsValue(user)) {
+        if(UserService.getUserService().isExistsThisUser(user) && UserService.getUserService().isUserAuthById(user.getId())) {
             authMap.put(user.getId(), user);
             return true;
         }

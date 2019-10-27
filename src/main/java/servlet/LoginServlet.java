@@ -17,12 +17,8 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter writer = resp.getWriter();
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
-        User newAuthUser = new User(email, password);
-        if(UserService.getUserService().isExistsThisUser(newAuthUser)) {
-            UserService.getUserService().authUser(newAuthUser);
-        }
+        User newAuthUser = new User(req.getParameter("email"), req.getParameter("password"));
+        UserService.getUserService().authUser(newAuthUser);
     }
 
     @Override
