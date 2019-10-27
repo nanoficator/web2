@@ -51,7 +51,8 @@ public class UserService {
         Iterator it = allUsers.iterator();
         while (it.hasNext()) {
             User userIt = (User) it.next();
-            if (user.getEmail() == userIt.getEmail()) {
+            if (user.getEmail().equals(userIt.getEmail())) {
+                user.setId(userIt.getId());
                 return true;
             }
         }
@@ -63,7 +64,7 @@ public class UserService {
     }
 
     public boolean authUser(User user) {
-        if(UserService.getUserService().isExistsThisUser(user) && UserService.getUserService().isUserAuthById(user.getId())) {
+        if(UserService.getUserService().isExistsThisUser(user)) {
             authMap.put(user.getId(), user);
             return true;
         }
@@ -75,6 +76,7 @@ public class UserService {
     }
 
     public boolean isUserAuthById(Long id) {
+
         return authMap.containsKey(id);
     }
 }
